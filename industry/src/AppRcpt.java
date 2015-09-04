@@ -48,7 +48,7 @@ public class AppRcpt extends HttpServlet {
         
         
         
-        File reportFile = new File(getServletConfig().getServletContext().getRealPath("\\WEB-INF\\sw.jasper"));
+        File reportFile = new File(getServletConfig().getServletContext().getRealPath("WEB-INF/sw.jasper"));
         byte bytes[] = (byte[])null;
         
         Map params = new HashMap();

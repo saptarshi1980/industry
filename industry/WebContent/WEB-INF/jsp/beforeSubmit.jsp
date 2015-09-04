@@ -154,12 +154,12 @@ function message(){
     <td bgcolor="#999933"><input name="referee2_address" type="text" size="40" value="<%=session.getAttribute("referee2Adderess")%>"></td>
   </tr>
   
-  <tr>
+  <!-- <tr>
     <td height="5" colspan="3" bgcolor="#99831D"><div align="left">Enter The One Time Password Which you Have Received </div></td>
     <td height="5" bgcolor="#99831D"><label>
       <input type="text" name="otp">
     </label></td>
-  </tr>
+  </tr> -->
   <tr>
     <td height="5" colspan="4" bgcolor="#993300"><div align="center">
       <input type="submit" name="Submit" value="Submit">

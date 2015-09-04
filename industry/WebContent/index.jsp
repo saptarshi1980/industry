@@ -46,7 +46,7 @@
                 <li><a class="drop" href="#">DPL</a>
                   <ul>
                     <li><a href="DPLHandler">Single Window</a></li>
-                    <li><a href="initialUploadDate.jsp">ALDC</a></li>
+                    <li><a href="aldc_login.jsp">ALDC</a></li>
                   </ul>
                 </li>
                 <!-- <li><a href="#">Level 2</a></li> -->
@@ -100,9 +100,17 @@
     <!-- ################################################################################################ -->
     <article class="one_third first">
       <h2>State Load Dispatch Data</h2>
-      <p class="btmspace-30">State Load Dispatch Data</p>
-      <p class="nospace"><a class="btn" href="#">Proceed</a></p>
+      <p class="btmspace-30"></p>
+      <p class="nospace"><a class="btn" href="aldc_login.jsp">Upload Initial Data</a></p>
+     </article>
+    
+    <article class="one_third first">
+      
+      <p class="btmspace-30"></p>
+      
+      <p class="nospace"><a class="btn" href="initialDownloadDate.jsp">Download Initial Data</a></p>
     </article>
+    
     <div class="two_third">
       <div class="group services">
         <article class="one_half first btmspace-30"><a class="icon" href="#"><i class="fa fa-street-view"></i></a>

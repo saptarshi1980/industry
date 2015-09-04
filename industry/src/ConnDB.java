@@ -24,7 +24,8 @@ String hostName=null;
 	
 try {
 	InetAddress IP=InetAddress.getLocalHost();
-	hostName=IP.getHostName();
+	//hostName=IP.getHostName();
+	hostName="192.168.30.7";
 } catch (UnknownHostException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();

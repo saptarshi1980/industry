@@ -383,7 +383,7 @@ function applicantLand()
     <td colspan="2"><input type="text" name="applicant_landline" onBlur="return applicantLand()"></td>
   </tr>
   <tr>
-    <td colspan="2">Applicant's Contact    Number (Mobile)-<span class="style4">One Time Password will be sent to this number </span></td>
+    <td colspan="2">Applicant's Contact    Number (Mobile)<span class="style4"> </span></td>
     <td colspan="2"><input name="applicant_mobile" type="text" maxlength="10" ></td>
   </tr>
   <tr>
