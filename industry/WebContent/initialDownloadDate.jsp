@@ -55,7 +55,7 @@ div.footer {
  
  <table width="427" border="2" align="center" cellpadding="2" bgcolor="#5882FA">
    <tr>
-     <td width="415"><div align="center" class="style2">INITIAL SCHEDULE DATA DOWNlOAD </div></td>
+     <td width="415"><div align="center" class="style2">INITIAL SCHEDULE DATA DOWNLOAD </div></td>
    </tr>
  </table>
 <div align="center">
