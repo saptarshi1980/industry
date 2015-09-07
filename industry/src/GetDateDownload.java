@@ -57,7 +57,7 @@ public class GetDateDownload extends HttpServlet {
 				
 			}
 			
-			//request.getRequestDispatcher("index.jsp").forward(request, response);
+			else request.getRequestDispatcher("nofile.jsp").forward(request, response);
 									
 		}catch(SQLException ex){
 			ex.printStackTrace();
