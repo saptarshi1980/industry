@@ -20,7 +20,7 @@ public Connection make_connection(){
    
   
    Connection con=null;
-   String c="jdbc:mysql://server2/billdesk";
+   String c="jdbc:mysql://192.168.30.2/billdesk";
    
    try{
 

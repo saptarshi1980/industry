@@ -89,18 +89,35 @@ if(request.getParameter("a") != null){
 							e.printStackTrace();
 						}
 					}
-			
+			billAmt="2.00";
 	    	String ChecksumKey ="a3VkNtgWZNwu";
 			String transactionRefNo=getDate()+System.nanoTime();
 			String transactionDate=getDate();
 			String ru="http://thedpl.in/mydpl/bdresponse";
-			String msg=new CreateMessage().createMessage("DURGAPUR", consNo,"NA", billAmt, "INR", "R", "durgapur", "F", transactionDate, "E",transactionRefNo, billMonthnew, "117.218.3.254",ru);
+			String ip=request.getRemoteAddr();
+			String msg=new CreateMessage().createMessage("DURGAPUR", consNo,"NA", billAmt, "INR", "R", "durgapur", "F", transactionDate, "E",transactionRefNo, billMonthnew, ip,ru);
 			System.out.println("MSG="+msg);
 			//String checkSum=HmacSHA256(msg, ChecksumKey);
 			String checkSum=new ChecksumBillDesk().HmacSHA256(msg, ChecksumKey);
 			String finalMessage=msg+"|"+checkSum;
 			System.out.println("Final Message Parameter which will be sent to BillDesk-"+finalMessage);
+			Connection connInsert=new ConnDB().make_connection();
+			try{
+				connInsert.createStatement().executeUpdate("insert into transaction(consumer_no,transaction_date,transaction_type,transaction_ref_no,bill_month,transaction_amt,remarks,original_status,final_status,billdesk_status,initiation_ts,original_msg,checksum) values('"+consNo+"','"+transactionDate+"','E','"+transactionRefNo+"',str_to_date('"+billMonth+"','%M-%Y'),'"+billAmt+"','"+ip+"','PENDING','PENDING','0000',NOW(),'"+msg+"','"+checkSum+"')");
+				
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}finally{
+				try {
+					connInsert.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
+			request.setAttribute("msg", finalMessage);
+			request.getRequestDispatcher("finalgateway.jsp").forward(request, response);
 	}
 else{
 	response.sendRedirect("index.jsp");

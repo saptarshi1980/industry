@@ -14,9 +14,9 @@
 </script>
 </head>
 <body onload="submit()">
-<form name="frm1" action="http://itcell/billdesk/ReceiveServlet" method="POST">
+<form name="frm1" action="https://pgi.billdesk.com/pgidsk/PGIMerchantPayment" method="POST">
 
-<input type="hidden" value="${sessionScope.msg}" name="msg"/>
+<input type="hidden" value="${requestScope.msg}" name="msg"/>
 <br>
 <br><br>
 

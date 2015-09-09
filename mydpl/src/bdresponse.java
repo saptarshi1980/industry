@@ -2,6 +2,8 @@
 
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.BillInfo;
 import sun.security.krb5.internal.crypto.DesCbcCrcEType;
 
 /**
@@ -79,12 +82,30 @@ public class bdresponse extends HttpServlet {
 		
 		if(checksumBD.matches(checkSumDPL)){
 			System.out.println("Checksum Matched, Authorised Transaction. Transaction Reports will be updated");
-			
+			extractString(originalMsg);
+			Connection conn=new ConnDB().make_connection();
+			try{
+				conn.createStatement().executeUpdate("update transaction set final_status='COMPLETED' and billdesk_status='"+authStatus+"' where transaction_ref_no='"+addInfo3+"' and transaction_amt='"+txnAmt+"' and original_status='PENDING'");
+				conn.createStatement().executeUpdate("insert into general_response (merchant_id,consumer_no,bd_trans_ref,bank_ref_no,transaction_amt,bank_id,bank_merchant_id,transaction_type,currency_name,item_code,security_type,security_id,security_password,transaction_date,auth_status,settlement_type,additionalinfo1_date,additionalinfo2_tran_type,additionalinfo3_trans_ref_no,additionalinfo4_bill_month,additionalinfo5_remarks,additionalinfo6,additionalinfo7,error_status,error_description,checksum,completion_ts) "
+						+ "values('"+merchantID+"','"+customerID+"','"+txnRefNo+"','"+bankRefNo+"','"+txnAmt+"','"+bankID+"','"+bankMerchantID+"','"+txnType+"','"+currencyName+"','"+itemCode+"','"+securityType+"','"+securityID+"','"+securityPassword+"','"+transactionDate+"','"+authStatus+"','"+settlementType+"','"+addInfo1+"','"+addInfo2+"','"+addInfo3+"','"+addInfo4+"','"+addInfo5+"','"+addInfo6+"','"+addInfo7+"','"+errorStatus+"','"+errorDescription+"','"+checksumBD+"',NOW())");
+				request.setAttribute("ref_no", addInfo3);
+				request.getRequestDispatcher("paymentStatus.jsp").forward(request, response);
+				
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		else{
 			System.out.println("Checksum Mis Match, Transaction Declined. ");
 		}
-		extractString(originalMsg);
+		
 		
 		
 	}
