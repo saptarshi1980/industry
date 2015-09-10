@@ -74,7 +74,7 @@ public class bdresponse extends HttpServlet {
 		String checksumBD=msg.substring(msg.lastIndexOf("|")+1, msg.length());
 		String originalMsg=msg.substring(0,msg.lastIndexOf("|"));
 		//String checkSumDPL=HmacSHA256(originalMsg, ChecksumKey);
-		String checkSumDPL=new ChecksumBillDesk().HmacSHA256(msg, ChecksumKey);
+		String checkSumDPL=new ChecksumBillDesk().HmacSHA256(originalMsg, ChecksumKey);
 		
 		System.out.println("CheckSum Bd-"+checksumBD);
 		System.out.println("CheckSum DPL-"+checkSumDPL);
@@ -83,11 +83,13 @@ public class bdresponse extends HttpServlet {
 		if(checksumBD.matches(checkSumDPL)){
 			System.out.println("Checksum Matched, Authorised Transaction. Transaction Reports will be updated");
 			extractString(originalMsg);
+			
+			
 			Connection conn=new ConnDB().make_connection();
 			try{
-				conn.createStatement().executeUpdate("update transaction set final_status='COMPLETED' and billdesk_status='"+authStatus+"' where transaction_ref_no='"+addInfo3+"' and transaction_amt='"+txnAmt+"' and original_status='PENDING'");
+				conn.createStatement().executeUpdate("update transaction set final_status='COMPLETED',billdesk_status='"+authStatus+"' where transaction_ref_no='"+addInfo3+"' and transaction_amt='"+txnAmt+"' and original_status='PENDING'");
 				conn.createStatement().executeUpdate("insert into general_response (merchant_id,consumer_no,bd_trans_ref,bank_ref_no,transaction_amt,bank_id,bank_merchant_id,transaction_type,currency_name,item_code,security_type,security_id,security_password,transaction_date,auth_status,settlement_type,additionalinfo1_date,additionalinfo2_tran_type,additionalinfo3_trans_ref_no,additionalinfo4_bill_month,additionalinfo5_remarks,additionalinfo6,additionalinfo7,error_status,error_description,checksum,completion_ts) "
-						+ "values('"+merchantID+"','"+customerID+"','"+txnRefNo+"','"+bankRefNo+"','"+txnAmt+"','"+bankID+"','"+bankMerchantID+"','"+txnType+"','"+currencyName+"','"+itemCode+"','"+securityType+"','"+securityID+"','"+securityPassword+"','"+transactionDate+"','"+authStatus+"','"+settlementType+"','"+addInfo1+"','"+addInfo2+"','"+addInfo3+"','"+addInfo4+"','"+addInfo5+"','"+addInfo6+"','"+addInfo7+"','"+errorStatus+"','"+errorDescription+"','"+checksumBD+"',NOW())");
+						+ "values('"+merchantID+"','"+customerID+"','"+txnRefNo+"','"+bankRefNo+"','"+txnAmt+"','"+bankID+"','"+bankMerchantID+"','"+txnType+"','"+currencyName+"','"+itemCode+"','"+securityType+"','"+securityID+"','"+securityPassword+"',str_to_date('"+transactionDate+"','%d-%m-%Y %H:%i:%s'),'"+authStatus+"','"+settlementType+"','"+addInfo1+"','"+addInfo2+"','"+addInfo3+"','"+addInfo4+"','"+addInfo5+"','"+addInfo6+"','"+addInfo7+"','"+errorStatus+"','"+errorDescription+"','"+checksumBD+"',NOW())");
 				request.setAttribute("ref_no", addInfo3);
 				request.getRequestDispatcher("paymentStatus.jsp").forward(request, response);
 				
@@ -104,6 +106,7 @@ public class bdresponse extends HttpServlet {
 		}
 		else{
 			System.out.println("Checksum Mis Match, Transaction Declined. ");
+			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 		
 		
@@ -225,58 +228,58 @@ public class bdresponse extends HttpServlet {
 	        else if(i==6){
 	            this.bankMerchantID=value_split[i];
 	        }
-	        else if(i==6){
+	        else if(i==7){
 	            this.txnType=value_split[i];
 	        }
-	        else if(i==7){
+	        else if(i==8){
 	            this.currencyName=value_split[i];
 	        }
-	        else if(i==8){
+	        else if(i==9){
 	            this.itemCode=value_split[i];
 	        }
-	        else if(i==9){
+	        else if(i==10){
 	            this.securityType=value_split[i];
 	        }
-	        else if(i==10){
+	        else if(i==11){
 	            this.securityID=value_split[i];
 	        }
-	        else if(i==11){
+	        else if(i==12){
 	            this.securityPassword=value_split[i];
 	        }
-	        else if(i==12){
+	        else if(i==13){
 	            this.transactionDate=value_split[i];
 	        }
-	        else if(i==13){
+	        else if(i==14){
 	            this.authStatus=value_split[i];
 	        }
-	        else if(i==14){
+	        else if(i==15){
 	            this.settlementType=value_split[i];
 	        }
-	        else if(i==15){
+	        else if(i==16){
 	            this.addInfo1=value_split[i];
 	        }
-	        else if(i==16){
+	        else if(i==17){
 	            this.addInfo2=value_split[i];
 	        }
-	        else if(i==17){
+	        else if(i==18){
 	            this.addInfo3=value_split[i];
 	        }
-	        else if(i==18){
+	        else if(i==19){
 	            this.addInfo4=value_split[i];
 	        }
-	        else if(i==19){
+	        else if(i==20){
 	            this.addInfo5=value_split[i];
 	        }
-	        else if(i==20){
+	        else if(i==21){
 	            this.addInfo6=value_split[i];
 	        }
-	        else if(i==21){
+	        else if(i==22){
 	            this.addInfo7=value_split[i];
 	        }
-	        else if(i==22){
+	        else if(i==23){
 	            this.errorStatus=value_split[i];
 	        }
-	        else if(i==23){
+	        else if(i==24){
 	            this.errorDescription=value_split[i];
 	        }
 	        

@@ -97,13 +97,14 @@ if(request.getParameter("a") != null){
 			String ip=request.getRemoteAddr();
 			String msg=new CreateMessage().createMessage("DURGAPUR", consNo,"NA", billAmt, "INR", "R", "durgapur", "F", transactionDate, "E",transactionRefNo, billMonthnew, ip,ru);
 			System.out.println("MSG="+msg);
+			System.out.println("Date ="+transactionDate);
 			//String checkSum=HmacSHA256(msg, ChecksumKey);
 			String checkSum=new ChecksumBillDesk().HmacSHA256(msg, ChecksumKey);
 			String finalMessage=msg+"|"+checkSum;
 			System.out.println("Final Message Parameter which will be sent to BillDesk-"+finalMessage);
 			Connection connInsert=new ConnDB().make_connection();
 			try{
-				connInsert.createStatement().executeUpdate("insert into transaction(consumer_no,transaction_date,transaction_type,transaction_ref_no,bill_month,transaction_amt,remarks,original_status,final_status,billdesk_status,initiation_ts,original_msg,checksum) values('"+consNo+"','"+transactionDate+"','E','"+transactionRefNo+"',str_to_date('"+billMonth+"','%M-%Y'),'"+billAmt+"','"+ip+"','PENDING','PENDING','0000',NOW(),'"+msg+"','"+checkSum+"')");
+				connInsert.createStatement().executeUpdate("insert into transaction(consumer_no,transaction_date,transaction_type,transaction_ref_no,bill_month,transaction_amt,remarks,original_status,final_status,billdesk_status,initiation_ts,original_msg,checksum) values('"+consNo+"',str_to_date('"+transactionDate+"','%d%m%y'),'E','"+transactionRefNo+"',str_to_date('"+billMonth+"','%M-%Y'),'"+billAmt+"','"+ip+"','PENDING','PENDING','0000',NOW(),'"+msg+"','"+checkSum+"')");
 				
 			}catch(SQLException ex){
 				ex.printStackTrace();
