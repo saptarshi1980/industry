@@ -62,7 +62,9 @@ public class InfoHandler extends HttpServlet {
 		Connection conn=new ConnDB().make_connection();
 		String consNo=request.getParameter("con_id").toString();
 		ArrayList<BillInfo> al=new ArrayList<BillInfo>();
-		String query="SELECT party_code,DATE_FORMAT(STR_TO_DATE(bill_month,'%y%m'),'%M-%Y') AS bill_month_word,bill_month,bill_amt,date_format(due_date,'%d-%m-%Y') as due_date FROM v_bill_info WHERE party_code='"+consNo+"' and due_date>=CURDATE()";
+		//String query="SELECT party_code,DATE_FORMAT(STR_TO_DATE(bill_month,'%y%m'),'%M-%Y') AS bill_month_word,bill_month,bill_amt,date_format(due_date,'%d-%m-%Y') as due_date FROM v_bill_info WHERE party_code='"+consNo+"' and due_date>=CURDATE()";
+		
+		String query="SELECT a.party_code,DATE_FORMAT(STR_TO_DATE(a.bill_month,'%y%m'),'%M-%Y') AS bill_month_word,a.bill_month,a.bill_amt,DATE_FORMAT(a.due_date,'%d-%m-%Y') AS due_date FROM v_bill_info a  WHERE a.party_code='"+consNo+"' AND a.due_date>=CURDATE() AND a.bill_month NOT IN (SELECT a.bill_month FROM v_bill_info a,TRANSACTION b WHERE b.consumer_no='"+consNo+"' AND b.consumer_no=a.party_code AND DATE_FORMAT(STR_TO_DATE(a.bill_month,'%y%m'),'%Y-%m')=DATE_FORMAT(b.bill_month,'%Y-%m') AND b.billdesk_status='0300' ) ";
 		int counter=0;
 		try{
 			

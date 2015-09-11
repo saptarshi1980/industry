@@ -1,34 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Billing Information</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>The Durgapur Projects Limited-Login Form</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
 </head>
-<body>
-<Form name="frm1" action="InfoHandler.dpl" method="POST">
-<p>
-<p><br><br><br>
-<table align="center" >
-  <td>Consumer id</td>
-      <td><input type="text" id="con_id" name="con_id" ></td>
-    <!-- <tr><td>Bill Amount </td><td><input type="text" id="amt" name="amt" value="1000"></td> -->
-      <div align="center">Welcome to Online Payment Portal of DPL</div>
-    <br>
-    <br>
-  <tr>
-    <td></td>
-  </tr>
-  <tr></tr>
-  <tr></tr>
-  <tr></tr>
-  </tr>
-</table>
-<br>
-<div align="center"><input type="submit" id="name" name="name" value="Proceed For Payment"></div>
+<body ><br>
+<div align="center"><img src="images/logo_blue.jpg" /></div>
+  <section class="container">
+    <div class="login">
+      <h1>Enter Consumer No & Password to Proceed</h1>
+      <form method="post" action="" name="frm1">
+        <p><input type="text" name="con_no" value="" placeholder="Consumer No" ></p>
+        <p><input type="password" name="password" value="" placeholder="Password"></p>
+        <p class="submit"><input type="submit" name="commit" value="Proceed"></p>
+        <!-- <p><a href="">Not Registered Yet? Register Now</a></p>
+        <p><a href="QuickPay">Quick Pay (Registration Not Required)</a></p> -->
+      </form>
+    </div><p>
+    <div align="center"><br>
+    <p><a href="">Not Registered Yet? Register Now</a></p>
+    <p><a href="QuickPay">Quick Pay (Registration Not Required)</a></p>
+    </div>
+  </section>
 
-</Form>
-
+  <section class="about">
+     <p class="about-author">
+     Site Developed by IT Cell, The Durgapur Projects Limited.
+  </section>
 </body>
 </html>

@@ -18,7 +18,7 @@ function validateForm(){
 </head>
 <body>
 <!-- <form name="frm1" action="Final.dpl" method="POST"> -->
-<form name="frm1" action="Inter.dpl" method="POST" onsubmit="validateForm()">
+<form name="frm1" action="Inter.dpl" method="POST" onSubmit="validateForm()">
 
 <input type="hidden" value="${sessionScope.msg}" name="msg"/>
 <br>
@@ -27,10 +27,10 @@ function validateForm(){
 <div align="center"><h3>Please select the Bill Month for which you want to make the Payment</h3><br></div>
 
 
-<table width="356" border="1" align="center" cellpadding="1" cellspacing="2">
-<tr><th width="108" bgcolor="#996633">Bill Month</th>
-   <th width="143" bgcolor="#996633">Bill Amount</th>
-   <th width="143" bgcolor="#996633">Due Date</th>
+<table width="471" border="1" align="center" cellpadding="1" cellspacing="2">
+<tr><th width="145" bgcolor="#996633">Bill Month</th>
+   <th width="124" bgcolor="#996633">Bill Amount</th>
+   <th width="148" bgcolor="#996633">Due Date</th>
    </tr>
 <c:forEach items="${al}" var="bill_info">
    

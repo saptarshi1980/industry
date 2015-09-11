@@ -36,4 +36,20 @@
     <servlet-name>PaymentStatus</servlet-name>
     <url-pattern>/PaymentStatus</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>QuickPay</display-name>
+    <servlet-name>QuickPay</servlet-name>
+    <servlet-class>QuickPay</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuickPay</servlet-name>
+    <url-pattern>/QuickPay</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.dpl</welcome-file>
+  </welcome-file-list>
 </web-app>
